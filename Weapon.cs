@@ -1,1 +1,4 @@
-// My Weapon class 
+public static class Weapon
+{
+    
+}
