@@ -1,1 +1,4 @@
-// My Monster class 
+public static class Monster
+{
+    
+}
