@@ -1,4 +1,4 @@
-public static class Player
+public class Player
 {
-    
+
 }

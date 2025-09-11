@@ -1,4 +1,4 @@
-public static class Weapon
+public class Weapon
 {
-    
+
 }

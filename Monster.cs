@@ -1,4 +1,4 @@
-public static class Monster
+public class Monster
 {
-    
+
 }
