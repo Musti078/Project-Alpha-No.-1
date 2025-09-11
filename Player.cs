@@ -83,7 +83,7 @@ public class Player
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = QuestCompleted.Count >= 3;
-        bool AtCastle = location == "Castle";
+        bool AtCastle = ocation == "Castle";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
         return DoneThreeQuest && AtCastle && hasGoldenSpider;
