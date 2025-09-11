@@ -8,14 +8,26 @@ public class Quest
     //The player gets to see what the quest is about and what rewards are for the quest - vrijdag
 
 
-    /// <summary>description of the quest, which is displayed when the quest start</summary>
-    public string Description;
-
-    /// <summary>unique id of quest</summary>
+    /// <summary>
+    /// unique id of quest<
+    /// /summary>
     public int Id;
 
-    /// <summary>name of the quest</summary>
+    /// <summary>
+    /// name of the quest
+    /// </summary>
     public string Name;
+
+    /// <summary>
+    /// description of the quest, which is displayed when the quest start
+    /// </summary>
+    public string Description;
+
+    /// <summary>
+    /// List with monsters that need to be defeated
+    /// </summary>
+    public List<Monster> Monsters = [];
+
 
     /// <summary>create a new quest</summary>
     /// <param name="id">unique id of quest</param>
@@ -23,43 +35,61 @@ public class Quest
     /// <param name="description">description of the quest, which is displayed when the quest start</param>
     public Quest(int id, string name, string description = "")
     {
-        this.Description = description;
         this.Id = id;
         this.Name = name;
+        this.Description = description;
     }
 
+    //World.Weapons;
+    //World.Monsters;
+    //World.Quest;
+    //World.Locations;
+    //World.RandomGenerator;
 
-    //
+
+    /// <summary>
+    /// usage: Location.QuestAvailableHere.StartQuest()
+    /// </summary>
     public void StartQuest()
     {
-        for (int i = 0; i < 10; i++)
+
+
+        //When the player enters a location with a quest, ask the user if he wants to start the quest or not - af vandaag
+        //hoe weten we of er een quest is op een locatie
+
+        //Id = QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
+        //Name = "Clear the alchemist's garden",
+        //Description = "Kill rats in the alchemist's garden ");
+
+
+        Console.WriteLine("Do you want to start the quest or not? Y/N");
+        string choice = Console.ReadLine().ToUpper();
+        if (choice == "Y")
         {
-
-            Console.WriteLine("Do you want to start the quest or not? Y/N");
-            string choice = Console.ReadLine().ToUpper();
-            if (choice == "Y")
-            {
-                //gets a message that the quest has started with the objective
-                //player gets to see what the quest is about and what rewards are for the quest
-            }
-            if (choice == "N")
-            {
-                Console.WriteLine("Do you want to another location? Y/N");
-                string choice2 = Console.ReadLine().ToUpper();
-
-                if (choice2 == "Y")
-                {
-                    //go to another location
-                }
-
-                if (choice2 == "N")
-                {
-                    //?
-                }
-            }
+            Console.WriteLine($"The quest has started: {this.Name}");
+            Console.WriteLine($"Your objective is to: {this.Description}");
+            Console.WriteLine($"If you succeed I will reward you with ???");
+        }
+        if (choice == "N")
+        {
+            Console.WriteLine("Then lease proceed to another location");
         }
 
+    }
 
+    /// <summary>Returns true if Quest is completed</summary>
+    /// <returns>true if Quest is completed</returns>
+    public bool QuestCompleted()
+    {
+        foreach (Monster monster in World.Monsters)
+        {
+            if (!monster.IsDead)
+            {
+                return false;
+            }
+        }
+        Console.WriteLine("The quest completed");
+        return true;
     }
 }
 
