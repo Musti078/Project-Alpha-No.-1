@@ -3,9 +3,9 @@ public class Location
     public int ID;
     public string Name;
     public string Description;
-    public bool ItemRequiredToEnter = true;
-    public bool QuestAvailableHere = true;
-    public bool MonsterLivingHere = true;
+    public Item ItemRequiredToEnter;
+    public Quest QuestAvailableHere;
+    public Monster MonsterLivingHere;
     public Location LocationToNorth;
     public Location LocationToEast;
     public Location LocationToSouth;
