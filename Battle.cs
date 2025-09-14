@@ -1,5 +1,3 @@
-using System;
-
 public static class Battle
 {
     public static void Start(Player player, Monster monster)
@@ -68,3 +66,4 @@ public static class Battle
         }
     }
 }
+
