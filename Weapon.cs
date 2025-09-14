@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+// weapon class 
 public class Weapon
 {
     public string Name { get; }
@@ -12,14 +13,14 @@ public class Weapon
         Damage = damage;
     }
 }
-
+// this is the class for items
 public static class ItemCatalog
 {
     public const string HealPotion = "Heal Potion";
     public const string GoldenSpider = "Golden Spider";
 }
 
-
+// the weapon system class
 public static class WeaponSystem
 {
     ///  Quest from given case     NOTE: The const keyword>>

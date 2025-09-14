@@ -1,13 +1,16 @@
 public class Player
 {
+    // this makes the list and {get; set;} basically get lets you get a item and set is to kinda like assign a value to it
+    // these are all the fields
     public List<string> QuestCompleted { get; set; } = new List<string>();
-    public string location { get; set; }
+    public string Location { get; set; }
     public List<string> inventory { get; set; } = new List<string>();
     public int CurrentHitPoints;
     public int MaximumHitPoints;
-
+    // a rng generator
     private static Random rng = new Random();
 
+    // constructor with two parameters
     public Player(int currenthitpoints, int maximumhitpoints)
     {
         CurrentHitPoints = currenthitpoints;
@@ -74,6 +77,11 @@ public class Player
         }
     }
 
+    // this is to check if the player has won the game or not
+    // so it first checks if three quests have been done or not
+    // then checks if he is back at home
+    // and last condition is to check if the players inventory contains the item Golden spider
+    // when all conditions match it will display victory if not it wont do anything
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = QuestCompleted.Count >= 3;
@@ -89,6 +97,9 @@ public class Player
         return DisplayVictory;
     }
 
+    // this is to print the victory when you win it shows your location and items in your inventory
+    // it will loop for quest with each quest you have done
+    // and it does the same for invetory items both will print out your results
     public void DisplayVictory()
     {
         Console.WriteLine("\nCongratulations! You won!");
