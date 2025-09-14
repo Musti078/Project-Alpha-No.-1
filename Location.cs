@@ -9,7 +9,7 @@ public class Location
     public Location LocationToNorth;
     public Location LocationToEast;
     public Location LocationToSouth;
-    public Locationocation LocationToWest;
+    public Location LocationToWest;
 
     public Location(int id, string name, string description, bool itemRequired, bool questready, bool monsterHere)
     {
