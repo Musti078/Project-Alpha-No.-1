@@ -3,8 +3,8 @@ public class Player
     public List<string> QuestCompleted { get; set; } = new List<string>();
     public string location { get; set; }
     public List<string> inventory { get; set; } = new List<string>();
-    public int CurrentHitPoints;
-    public int MaximumHitPoints;
+    public int CurrentHitPoints = currenthitpoints;
+    public int MaximumHitPoints = maximumhitpoints;
 
     private static Random rng = new Random();
 
@@ -44,17 +44,13 @@ public class Player
 
     public bool TryFlee()
     {
-        Random rng = new Random();
         int roll = rng.Next(1, 101);
-
-        if (roll <= 70) // 70% chance
+        if (roll <= 70)
         {
-            Console.WriteLine("You successfully fled!");
             return true;
         }
         else
         {
-            Console.WriteLine("You failed to flee!");
             return false;
         }
     }
@@ -63,14 +59,13 @@ public class Player
     {
         const int healAmount = 10;
 
-        // Check if player has a potion
         if (inventory.Contains("Heal Potion"))
         {
             CurrentHitPoints += healAmount;
             if (CurrentHitPoints > MaximumHitPoints)
                 CurrentHitPoints = MaximumHitPoints;
 
-            Inventory.Remove("Heal Potion"); // use the potion
+            inventory.Remove("Heal Potion");
             Console.WriteLine($"You used a Heal Potion and recovered {healAmount} HP! (Current HP: {CurrentHitPoints}/{MaximumHitPoints})");
         }
         else
@@ -78,7 +73,6 @@ public class Player
             Console.WriteLine("You have no Heal Potions!");
         }
     }
-
 
     public bool PlayerHasWon()
     {
@@ -88,5 +82,4 @@ public class Player
 
         return DoneThreeQuest && AtCastle && hasGoldenSpider;
     }
-
 }
