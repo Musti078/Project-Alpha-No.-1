@@ -11,7 +11,7 @@ public class Location
     public Location LocationToSouth;
     public Location LocationToWest;
 
-    public Location(int id, string name, string description, bool itemRequired, bool questready, bool monsterHere)
+    public Location(int id, string name, string description, Item itemRequired = null , Quest questready = null, Monster monsterHere = null)
     {
         ID = id;
         Name = name;
