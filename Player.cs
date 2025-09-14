@@ -3,8 +3,8 @@ public class Player
     public List<string> QuestCompleted { get; set; } = new List<string>();
     public string location { get; set; }
     public List<string> inventory { get; set; } = new List<string>();
-    public int CurrentHitPoints = currenthitpoints;
-    public int MaximumHitPoints = maximumhitpoints;
+    public int CurrentHitPoints;
+    public int MaximumHitPoints;
 
     private static Random rng = new Random();
 
