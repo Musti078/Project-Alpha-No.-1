@@ -2,9 +2,40 @@ public class Player
 {
     // this makes the list and {get; set;} basically get lets you get a item and set is to kinda like assign a value to it
     // these are all the fields
-    public List<string> QuestCompleted { get; set; } = new List<string>();
-    public string Location { get; set; }
-    public List<string> inventory { get; set; } = new List<string>();
+    public List<string> questCompleted = new List<string>();
+    // gets the quest
+    public List<string> GetCompletedQuest()
+    {
+        return questCompleted;
+    }
+    // sets a quest value
+    public void SetQuest(List<string> quest)
+    {
+        questCompleted = quest;
+    }
+
+
+    public string Location;
+
+    public string GetLocation()
+    {
+        return Location;
+    }
+    public void setLocation(string value)
+    {
+        Location = value;
+    }
+    
+    public List<string> inventory = new List<string>();
+    public List<string> Getinventory()
+    {
+        return inventory;
+    }
+
+    public void Setinventory(List<string> items)
+    {
+        inventory = items;
+    }
     public int CurrentHitPoints;
     public int MaximumHitPoints;
     // a rng generator

@@ -4,8 +4,11 @@ using System.Collections.Generic;
 // weapon class 
 public class Weapon
 {
-    public string Name { get; }
-    public int Damage { get; }
+    public string Name;
+    public int Damage;
+
+    public string GetName() => Name;
+    public int GetDamage() => Damage;
 
     public Weapon(string name, int damage)
     {
@@ -33,13 +36,16 @@ public static class WeaponSystem
     public const string QuestSpiders = "Collect the Spider's Silk";
 
     // Current equipped weapon ( WE START WITH RUSTY SWORD)
-    public static string EquippedWeaponName { get; private set; } = "Rusty Sword";
-    public static int EquippedWeaponDamage { get; private set; } = 3;
+    public static string EquippedWeaponName = "Rusty Sword";
+    public static int EquippedWeaponDamage = 3;
+
+    public static string GetEquippedWeaponName() => EquippedWeaponName;
+    public static int GetEquippedWeaponDamage() => EquippedWeaponDamage;
 
     // show rewards before starting a quest
     public static void PreviewQuestRewards(string questName)
     {
-        var (weapon, potions) = GetReward(questName);
+        var (weapon, potions, _) = GetReward(questName);
         if (weapon is null)
         {
             Console.WriteLine($"No reward for quest: {questName}");
@@ -48,7 +54,7 @@ public static class WeaponSystem
 
         Console.WriteLine($"Quest: {questName}");
         Console.WriteLine($"Rewards:");
-        Console.WriteLine($" - Weapon: {weapon.Name} (DMG {weapon.Damage})");
+        Console.WriteLine($" - Weapon: {(weapon.GetName())} (DMG {weapon.GetDamage()})");
         Console.WriteLine($" - Heal Potion x{potions}");
         Console.WriteLine();
     }
@@ -81,39 +87,39 @@ public static class WeaponSystem
         Console.WriteLine($"{ItemCatalog.HealPotion} x{potions} added to inventory.");
 
         // weapon to inventory
-        playerInventory.Add(weapon.Name);
-        Console.WriteLine($"{weapon.Name} added to inventory.");
+        playerInventory.Add(weapon.GetName());
+        Console.WriteLine($"{weapon.GetName()} added to inventory.");
 
         foreach (var item in items)
         {
             playerInventory.Add(item);
-            Console.WriteLine($"{item} added to intventory");
+            Console.WriteLine($"{item} added to inventory");
         }
 
         // auto-equip if better than current
-            if (weapon.Damage > EquippedWeaponDamage)
+            if (weapon.GetDamage() > EquippedWeaponDamage)
             {
                 string prevName = EquippedWeaponName;
                 int prevDmg = EquippedWeaponDamage;
 
-                EquippedWeaponName = weapon.Name;
-                EquippedWeaponDamage = weapon.Damage;
+                EquippedWeaponName = weapon.GetName();
+                EquippedWeaponDamage = weapon.GetDamage();
 
                 if (string.IsNullOrEmpty(prevName))
-                    Console.WriteLine($"{weapon.Name} equipped.");
+                    Console.WriteLine($"{weapon.GetName()} equipped.");
                 else
-                    Console.WriteLine($"{weapon.Name} equipped (upgraded from {prevName} {prevDmg} → {weapon.Damage}).");
+                    Console.WriteLine($"{weapon.GetName()} equipped (upgraded from {prevName} {prevDmg} → {weapon.GetDamage()}).");
             }
             else
             {
-                Console.WriteLine($"{weapon.Name} not an upgrade.");
+                Console.WriteLine($"{weapon.GetName()} not an upgrade.");
             }
 
         completedQuests.Add(questName);
     }
 
     // REWARD TABLE
-    private static (Weapon? weapon, int potions) GetReward(string questName)
+    private static (Weapon? weapon, int potions, List<string> items) GetReward(string questName)
     {
         if (string.Equals(questName, QuestFarmer, StringComparison.OrdinalIgnoreCase))
             return (new Weapon("Sturdy Sword", 6), 1);
@@ -124,7 +130,7 @@ public static class WeaponSystem
         if (string.Equals(questName, QuestSpiders, StringComparison.OrdinalIgnoreCase))
             return (new Weapon("Spider King Slayer", 15), 1, new List<string> {ItemCatalog.GoldenSpider});
 
-        return (null, 0, List<string>()); // no reward
+        return (null, 0, new List<string>()); // no reward
     }
 
     // Display current weapon
