@@ -86,7 +86,31 @@ public class Player
         bool AtCastle = location == "Castle";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
-        return DoneThreeQuest && AtCastle && hasGoldenSpider;
+        bool WinGame = DoneThreeQuest && AtCastle && hasGoldenSpider;
+
+        if (WinGame)
+        {
+            DisplayVictory();
+        }
+        return DisplayVictory;
+    }
+
+    public void DisplayVictory()
+    {
+        Console.WriteLine("\nCongratulations! You won!");
+        Console.WriteLine($"You are at the {location}");
+        Console.WriteLine("\nThe quests you have done:");
+        foreach (var quest in QuestCompleted)
+        {
+            Console.WriteLine($"- {quest}");
+        }
+
+        Console.WriteLine("\n Your inventory items:");
+        foreach (var item in inventory)
+        {
+            Console.WriteLine($"- {item}");
+        }
     }
 
 }
+
