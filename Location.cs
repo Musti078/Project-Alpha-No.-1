@@ -1,4 +1,4 @@
-public class Locations
+public class Location
 {
     public int ID;
     public string Name;
@@ -8,14 +8,14 @@ public class Locations
     public bool MonsterLivingHere = true;
     public Location LocationToNorth;
     public Location LocationToEast;
-    public location LocationToSouth;
-    public location LocationToWest;
+    public Location LocationToSouth;
+    public Locationocation LocationToWest;
 
     public Location(int id, string name, string description, bool itemRequired, bool questready, bool monsterHere)
     {
         ID = id;
         Name = name;
-        Description = Description;
+        Description = description;
         ItemRequiredToEnter = itemRequired;
         questready = questready;
         MonsterLivingHere = monsterHere;
