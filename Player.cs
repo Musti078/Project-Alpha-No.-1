@@ -64,7 +64,7 @@ public class Player
         const int healAmount = 10;
 
         // Check if player has a potion
-        if (Inventory.Contains("Heal Potion"))
+        if (inventory.Contains("Heal Potion"))
         {
             CurrentHitPoints += healAmount;
             if (CurrentHitPoints > MaximumHitPoints)
@@ -83,7 +83,7 @@ public class Player
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = QuestCompleted.Count >= 3;
-        bool AtCastle = ocation == "Castle";
+        bool AtCastle = location == "Castle";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
         return DoneThreeQuest && AtCastle && hasGoldenSpider;
