@@ -23,4 +23,43 @@ public class Location
         MonsterLivingHere = monsterHere;
     }
 
+    // Where the player currently is
+    public Location CurrentLocation;
+
+    // Attempt to move in a given direction
+    public string Move(string direction)
+    {
+        // you can use switch to shorten and make the code clearer and more understandable.
+        // switch tries to match the condition
+        Location nextLocation = direction.ToLower() switch
+        {
+            "north" => CurrentLocation.North,
+            "east" => CurrentLocation.East,
+            "south" => CurrentLocation.South,
+            "west" => CurrentLocation.West,
+            _ => null
+        };
+
+        if (newLocation == null)
+        {
+            return "You cannot go that way! Choose another way";
+        }
+
+        CurrentLocation = newLocation;
+        return "You moved to: " + CurrentLocation.Name + "\n" + ShowAvailableMoves();
+    }
+
+    // Show directions the player can travel from current location
+    public string ShowAvailableMoves()
+    {
+        string result = "Possible moves:\n";
+
+        if (CurrentLocation.LocationToNorth != null) result += "north → " + CurrentLocation.LocationToNorth.Name + "\n";
+        if (CurrentLocation.LocationToEast != null) result += "east → " + CurrentLocation.LocationToEast.Name + "\n";
+        if (CurrentLocation.LocationToSouth != null) result += "south → " + CurrentLocation.LocationToSouth.Name + "\n";
+        if (CurrentLocation.LocationToWest != null) result += "west → " + CurrentLocation.LocationToWest.Name + "\n";
+
+        // Remove any trailing whitespace or line breaks from the end of the string.
+        return result.TrimEnd();
+    }
 }
