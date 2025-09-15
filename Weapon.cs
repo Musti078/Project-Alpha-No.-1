@@ -2,12 +2,14 @@ public class Weapon
 {
     public string Name;
     public int Damage;
+    public int ID;
 
     public string GetName() => Name;
     public int GetDamage() => Damage;
 
-    public Weapon(string name, int damage)
+    public Weapon(int id, string name, int damage)
     {
+        ID = id;
         Name = name;
         Damage = damage;
     }

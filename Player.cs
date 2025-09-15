@@ -2,6 +2,7 @@ public class Player
 {
     // these are all the fields
     public List<string> questCompleted = new List<string>();
+    
     // gets the quest
     public List<string> GetCompletedQuest()
     {
@@ -112,14 +113,19 @@ public class Player
     // then checks if he is back at home
     // and last condition is to check if the players inventory contains the item Golden spider
     // when all conditions match it will display victory if not it wont do anything
+    
     public bool PlayerHasWon()
     {
-        bool DoneThreeQuest = QuestCompleted.Count >= 3;
-        bool AtHome = location == "home";
+        bool DoneThreeQuest = questCompleted.Count >= 3;
+        bool AtHome = Location == "home";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
         bool WinGame = DoneThreeQuest && AtHome && hasGoldenSpider;
 
+        if (WinGame)
+        {
+            DisplayVictory();
+        }
         return WinGame;
     }
 
@@ -129,9 +135,9 @@ public class Player
     public void DisplayVictory()
     {
         Console.WriteLine("\nCongratulations! You won!");
-        Console.WriteLine($"You are at the {location}");
+        Console.WriteLine($"You are at the {Location}");
         Console.WriteLine("\nThe quests you have done:");
-        foreach (var quest in QuestCompleted)
+        foreach (var quest in questCompleted)
         {
             Console.WriteLine($"- {quest}");
         }
@@ -143,4 +149,3 @@ public class Player
         }
     }
 }
-
