@@ -1,6 +1,5 @@
 public class Player
 {
-    // this makes the list and {get; set;} basically get lets you get a item and set is to kinda like assign a value to it
     // these are all the fields
     public List<string> questCompleted = new List<string>();
     // gets the quest
