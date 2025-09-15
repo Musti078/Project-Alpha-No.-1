@@ -49,18 +49,14 @@ public class Location
         };
 
 
-    //                    [AlchemistsGarden]
-    //                            ↑
-    //                      [AlchemistHut]
-    //                            ↑
-    //     Farmersfield <-> [TownSquare] ←→ [GuardPost] ←→ [Bridge] ←→ [SpiderField]
-    //                            ↑
-    //                          [Home]
+        //                    [AlchemistsGarden]
+        //                            ↑
+        //                      [AlchemistHut]
+        //                            ↑
+        //     Farmersfield <-> [TownSquare] ←→ [GuardPost] ←→ [Bridge] ←→ [SpiderField]
+        //                            ↑
+        //                          [Home]
 
-        bool goNorth = CurrentLocation == CurrentLocation.North;
-        bool goWest = CurrentLocation == CurrentLocation.West;
-        bool goEast = CurrentLocation == CurrentLocation.East;
-        bool goSouth = CurrentLocation == CurrentLocation.South;
         VerticalLine = "|";
         HorizontalLine = "──";
 
