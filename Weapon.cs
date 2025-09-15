@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-// weapon class 
 public class Weapon
 {
     public string Name;
@@ -122,13 +118,13 @@ public static class WeaponSystem
     private static (Weapon? weapon, int potions, List<string> items) GetReward(string questName)
     {
         if (string.Equals(questName, QuestFarmer, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Sturdy Sword", 6), 1);
+            return (new Weapon("Sturdy Sword", 6), 1, new List<string>());
 
         if (string.Equals(questName, QuestAlchemist, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Steel Sword", 8), 1);
+            return (new Weapon("Steel Sword", 8), 1, new List<string>());
 
         if (string.Equals(questName, QuestSpiders, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Spider King Slayer", 15), 1, new List<string> {ItemCatalog.GoldenSpider});
+            return (new Weapon("Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
 
         return (null, 0, new List<string>()); // no reward
     }
