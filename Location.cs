@@ -21,6 +21,14 @@ public class Location
         ItemRequiredToEnter = itemRequired;
         questready = questready;
         MonsterLivingHere = monsterHere;
+        List<Locations> North = new List<Locations>
+        { townsquare.LocationToNorth, alchemistHut.LocationToNorth };
+        List<Locations> East = new List<Locations>
+        { townSquare.LocationToEast, farmhouse.LocationToEast, farmersField.LocationToEast, guardPost.LocationToEast, bridge.LocationToEast };
+        List<Locations> South = new List<Locations>
+        { townSquare.LocationToSouth, alchemistHut.LocationToSouth, alchemistsGarden.LocationToSouth, bridge.LocationToSouth };
+        List<Locations> West = new List<Locations>
+        { townSquare.LocationToWest, farmhouse.LocationToWest, guardPost.LocationToWest, bridge.LocationToWest, spiderField.LocationToWest };
     }
 
     // Where the player currently is
@@ -39,6 +47,29 @@ public class Location
             "west" => CurrentLocation.West,
             _ => null
         };
+
+
+    //                    [AlchemistsGarden]
+    //                            ↑
+    //                      [AlchemistHut]
+    //                            ↑
+    //     Farmersfield <-> [TownSquare] ←→ [GuardPost] ←→ [Bridge] ←→ [SpiderField]
+    //                            ↑
+    //                          [Home]
+
+        bool goNorth = CurrentLocation == CurrentLocation.North;
+        bool goWest = CurrentLocation == CurrentLocation.West;
+        bool goEast = CurrentLocation == CurrentLocation.East;
+        bool goSouth = CurrentLocation == CurrentLocation.South;
+        VerticalLine = "|";
+        HorizontalLine = "──";
+
+        if (goNorth)
+        {
+            Console.WriteLine("N");
+        }
+
+
 
         if (newLocation == null)
         {

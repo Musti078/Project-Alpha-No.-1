@@ -120,11 +120,7 @@ public class Player
 
         bool WinGame = DoneThreeQuest && AtHome && hasGoldenSpider;
 
-        if (WinGame)
-        {
-            DisplayVictory();
-        }
-        return DisplayVictory;
+        return WinGame;
     }
 
     // this is to print the victory when you win it shows your location and items in your inventory
