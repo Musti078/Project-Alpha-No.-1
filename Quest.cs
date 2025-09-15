@@ -1,4 +1,3 @@
-using System;
 public class Quest
 {
     //As a player I want to start a quest so I can finish it (in order to complete the game)
@@ -67,10 +66,9 @@ public class Quest
         string choice = Console.ReadLine().ToUpper();
         if (choice == "Y")
         {
-            var reward = WeaponSystem.GetReward(Name); //todo: beter met ID ophalen?
+            WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
             Console.WriteLine($"The quest has started: {this.Name}");
             Console.WriteLine($"Your objective is to: {this.Description}");
-            Console.WriteLine($"If you succeed I will reward you with {reward}");
         }
         if (choice == "N")
         {
@@ -94,17 +92,3 @@ public class Quest
         return true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
