@@ -47,7 +47,6 @@ public static class World
     {
         Monster rat = new Monster(MONSTER_ID_RAT, "rat", 1, 3, 3);
 
-
         Monster snake = new Monster(MONSTER_ID_SNAKE, "snake", 10, 7, 7);
 
 

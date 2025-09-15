@@ -1,4 +1,4 @@
-public static class Monster
+public class Monster
 {
     public int CurrentHitPoints;
     public int ID;
@@ -8,13 +8,16 @@ public static class Monster
 
     private static Random rng = new Random();
 
-    public Monster(int currenthitpoints, int id, int maximumdamage, int maximumhitpoints, string name)
+    //new Monster(MONSTER_ID_RAT, "rat", 1, 3, 3);
+
+
+    public Monster(int id, string name, int currenthitpoints,  int maximumdamage, int maximumhitpoints)
     {
-        CurrentHitPoints = currenthitpoints;
         ID = id;
-        MaximumDamage = maximumdamage;
-        MaximumHitpoints = maximumhitpoints;
         Name = name;
+        CurrentHitPoints = currenthitpoints;
+        MaximumDamage = maximumdamage;
+        MaximumHitPoints = maximumhitpoints;
     }
 
     public int attack()
@@ -29,7 +32,7 @@ public static class Monster
         }
 
         // Base damage (1 to MaximumDamage)
-        int damage = rng.Next(1, MaximumDamage + 1);
+        double damage = rng.Next(1, MaximumDamage + 1);
 
         if (roll > 90) // 10% chance to crit
         {
@@ -41,7 +44,7 @@ public static class Monster
             Console.WriteLine($"{Name} dealt {damage} damage.");
         }
 
-        return damage;
+        return (int)damage;
     }
 
     public string DropLoot()

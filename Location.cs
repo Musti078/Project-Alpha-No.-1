@@ -21,14 +21,16 @@ public class Location
         ItemRequiredToEnter = itemRequired;
         questready = questready;
         MonsterLivingHere = monsterHere;
-        List<Locations> North = new List<Locations>
+        /*
+        List<Location> North = new List<Location>
         { townsquare.LocationToNorth, alchemistHut.LocationToNorth };
-        List<Locations> East = new List<Locations>
+        List<Location> East = new List<Location>
         { townSquare.LocationToEast, farmhouse.LocationToEast, farmersField.LocationToEast, guardPost.LocationToEast, bridge.LocationToEast };
-        List<Locations> South = new List<Locations>
+        List<Location> South = new List<Location>
         { townSquare.LocationToSouth, alchemistHut.LocationToSouth, alchemistsGarden.LocationToSouth, bridge.LocationToSouth };
-        List<Locations> West = new List<Locations>
+        List<Location> West = new List<Location>
         { townSquare.LocationToWest, farmhouse.LocationToWest, guardPost.LocationToWest, bridge.LocationToWest, spiderField.LocationToWest };
+        */
     }
 
     // Where the player currently is
@@ -41,10 +43,10 @@ public class Location
         // switch tries to match the condition
         Location nextLocation = direction.ToLower() switch
         {
-            "north" => CurrentLocation.North,
-            "east" => CurrentLocation.East,
-            "south" => CurrentLocation.South,
-            "west" => CurrentLocation.West,
+            "north" => LocationToNorth,
+            "east" => LocationToEast,
+            "south" => LocationToSouth,
+            "west" => LocationToWest,
             _ => null
         };
 
@@ -57,12 +59,12 @@ public class Location
     //                            ↑
     //                          [Home]
 
-        bool goNorth = CurrentLocation == CurrentLocation.North;
-        bool goWest = CurrentLocation == CurrentLocation.West;
-        bool goEast = CurrentLocation == CurrentLocation.East;
-        bool goSouth = CurrentLocation == CurrentLocation.South;
-        VerticalLine = "|";
-        HorizontalLine = "──";
+        bool goNorth = CurrentLocation == LocationToNorth;
+        bool goWest = CurrentLocation == LocationToWest;
+        bool goEast = CurrentLocation == LocationToEast;
+        bool goSouth = CurrentLocation == LocationToSouth;
+        string VerticalLine = "|";
+        string HorizontalLine = "──";
 
         if (goNorth)
         {
@@ -71,12 +73,12 @@ public class Location
 
 
 
-        if (newLocation == null)
+        if (nextLocation == null)
         {
             return "You cannot go that way! Choose another way";
         }
 
-        CurrentLocation = newLocation;
+        CurrentLocation = nextLocation;
         return "You moved to: " + CurrentLocation.Name + "\n" + ShowAvailableMoves();
     }
 

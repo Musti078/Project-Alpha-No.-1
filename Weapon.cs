@@ -3,11 +3,14 @@ public class Weapon
     public string Name;
     public int Damage;
 
+    public int ID;
+
     public string GetName() => Name;
     public int GetDamage() => Damage;
 
-    public Weapon(string name, int damage)
+    public Weapon(int id, string name, int damage)
     {
+        ID = id;
         Name = name;
         Damage = damage;
     }
@@ -23,8 +26,8 @@ public static class ItemCatalog
 public static class WeaponSystem
 {
     ///  Quest from given case     NOTE: The const keyword>>
-    /// You use the const keyword to declare a constant field or a local constant. 
-    /// Constant fields and locals aren't variables and can't be modified. 
+    /// You use the const keyword to declare a constant field or a local constant.
+    /// Constant fields and locals aren't variables and can't be modified.
     /// Constants can be numbers, Boolean values, strings, or a null reference.
 
     public const string QuestFarmer = "Clear the Farmer's Field";
@@ -114,17 +117,23 @@ public static class WeaponSystem
         completedQuests.Add(questName);
     }
 
+
+
+    //    constructor: Weapon(int id, string name, int damage)
+
+
     // REWARD TABLE
     private static (Weapon? weapon, int potions, List<string> items) GetReward(string questName)
     {
         if (string.Equals(questName, QuestFarmer, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Sturdy Sword", 6), 1, new List<string>());
+            return (new Weapon(1, "Sturdy Sword", 6), 1, new List<string>());
+            //in constructor moet ook id worden opgegeven, nu tijdelijk even getal ingevuld. Bij de volgende ook
 
         if (string.Equals(questName, QuestAlchemist, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Steel Sword", 8), 1, new List<string>());
+            return (new Weapon(2, "Steel Sword", 8), 1, new List<string>());
 
         if (string.Equals(questName, QuestSpiders, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
+            return (new Weapon(3, "Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
 
         return (null, 0, new List<string>()); // no reward
     }
