@@ -1,4 +1,4 @@
-public static class Monster
+public class Monster
 {
     public int CurrentHitPoints;
     public int ID;
@@ -8,14 +8,15 @@ public static class Monster
 
     private static Random rng = new Random();
 
-    public Monster(int currenthitpoints, int id, int maximumdamage, int maximumhitpoints, string name)
+    public Monster(int id, string name, int maximumDamage, int maximumHitPoints, int currentHitPoints)
     {
-        CurrentHitPoints = currenthitpoints;
         ID = id;
-        MaximumDamage = maximumdamage;
-        MaximumHitpoints = maximumhitpoints;
         Name = name;
+        MaximumDamage = maximumDamage;
+        MaximumHitPoints = maximumHitPoints;
+        CurrentHitPoints = currentHitPoints;
     }
+
 
     public int attack()
     {
@@ -33,7 +34,7 @@ public static class Monster
 
         if (roll > 90) // 10% chance to crit
         {
-            damage *= 1.5;
+            damage = (int)(damage * 1.5);
             Console.WriteLine($"{Name} landed a CRITICAL HIT for {damage} damage!");
         }
         else
