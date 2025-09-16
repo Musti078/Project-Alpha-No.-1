@@ -63,6 +63,7 @@
                 currentlocation = nextLocation;
                 Console.WriteLine($"You moved to: {currentlocation.Name}");
 
+                player.setLocation(currentlocation.Name.ToLower());
 
                 //om de quest te testen zet ik de Current Location op een quest.
                 var quest = currentlocation.QuestAvailableHere;
@@ -125,6 +126,15 @@
                             );
 
                             WeaponSystem.ShowEquippedWeapon();
+
+                            if (quest.Name == "Collect Spider Silk")
+                            {
+                                player.inventory.Add("Golden Spider");
+                            }
+                            if (player.PlayerHasWon())
+                            {
+                                Environment.Exit(0);
+                            }
                         }
                     }
                     else
@@ -132,6 +142,11 @@
                         Console.WriteLine("Then please proceed to another location");
                     }
                 }
+                if (player.PlayerHasWon())
+                {
+                    Environment.Exit(0);
+                }
+
 
                 }
             }
