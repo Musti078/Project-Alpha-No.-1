@@ -1,18 +1,14 @@
-﻿public class Program
+public class Program
 {
-
     public static void Main()
     {
-
         World.PopulateLocations();
         World.PopulateMonsters();
         World.PopulateQuests();
         World.PopulateWeapons();
 
-
         var quests = World.Quests;
         Console.WriteLine($"there are {quests.Count} quests");
-
 
         Player player = new Player(30, 30);
         Location currentlocation = World.LocationByID(World.LOCATION_ID_HOME);
@@ -21,15 +17,10 @@
         Console.WriteLine("Enter your name, warrior");
         string userName = Console.ReadLine() ?? "";
 
-
         Location location = World.Locations[0];
         location.CurrentLocation = location;
         Console.WriteLine($"Current location is {location.Name}");
 
-
-
-        //hier stoppen omdat speler bewegen error geeft.
-        //Environment.Exit(0);
         string usermovement = "";
         while (usermovement.ToLower() != "exit")
         {
@@ -62,9 +53,8 @@
             {
                 currentlocation = nextLocation;
                 Console.WriteLine($"You moved to: {currentlocation.Name}");
+                player.setLocation(currentlocation.Name.ToLower());
 
-
-                //om de quest te testen zet ik de Current Location op een quest.
                 var quest = currentlocation.QuestAvailableHere;
 
                 if (quest is not null)
@@ -125,6 +115,19 @@
                             );
 
                             WeaponSystem.ShowEquippedWeapon();
+
+                            // ADD GOLDEN SPIDER FOR SPIDER QUEST
+                            if (quest.ID == World.QUEST_ID_COLLECT_SPIDER_SILK && !player.inventory.Contains("Golden Spider"))
+                            {
+                                player.inventory.Add("Golden Spider");
+                                Console.WriteLine("You received the Golden Spider!");
+                            }
+
+                            if (player.PlayerHasWon())
+                            {
+                                player.DisplayVictory();
+                                Environment.Exit(0);
+                            }
                         }
                     }
                     else
@@ -133,22 +136,12 @@
                     }
                 }
 
+                if (player.PlayerHasWon())
+                {
+                    player.DisplayVictory();
+                    Environment.Exit(0);
                 }
             }
         }
-
-        // if (player.PlayerHasWon())
-            // {
-            //     /*
-            //     if (WinGame)
-            //     {
-            //         Victory = player.DisplayVictory();
-            //     }
-            //     return Victory;
-            //     */
-            // }
-
-
-
+    }
 }
-
