@@ -120,17 +120,18 @@ public class Player
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = questCompleted.Count >= 3;
-        bool AtHome = Location == "home";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
-        bool WinGame = DoneThreeQuest && AtHome && hasGoldenSpider;
+        bool WinGame = DoneThreeQuest && hasGoldenSpider;
 
         if (WinGame)
         {
             DisplayVictory();
         }
-        return WinGame;
+
+        return WinGame; // <--- this was missing
     }
+
 
     // this is to print the victory when you win it shows your location and items in your inventory
     // it will loop for quest with each quest you have done
