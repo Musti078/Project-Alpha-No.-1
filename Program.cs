@@ -50,7 +50,7 @@
                 "north" => currentlocation.LocationToNorth,
                 "east" => currentlocation.LocationToEast,
                 "south" => currentlocation.LocationToSouth,
-                "west" => currentlocation.LocationToEast,
+                "west" => currentlocation.LocationToWest,
                 _ => null
             };
 
@@ -117,8 +117,14 @@
 
                         if (monstersDefeated == 3)
                         {
-                            Console.WriteLine($"Quest '{quest.Name}' completed!");
-                            player.questCompleted.Add(quest.Name);
+                            // Grant rewards and auto-equip weapon if stronger
+                            WeaponSystem.GrantQuestRewards(
+                                quest.Name,
+                                player.inventory,
+                                player.questCompleted
+                            );
+
+                            WeaponSystem.ShowEquippedWeapon();
                         }
                     }
                     else
