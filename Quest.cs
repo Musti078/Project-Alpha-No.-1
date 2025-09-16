@@ -11,7 +11,7 @@ public class Quest
     /// <summary>
     /// unique id of quest
     /// </summary>
-    public int Id;
+    public int ID;
 
     /// <summary>
     /// name of the quest
@@ -35,7 +35,7 @@ public class Quest
     /// <param name="description">description of the quest, which is displayed when the quest start</param>
     public Quest(int id, string name, string description = "")
     {
-        this.Id = id;
+        this.ID = id;
         this.Name = name;
         this.Description = description;
     }
