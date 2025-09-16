@@ -1,13 +1,47 @@
 public class Player
 {
-    public List<string> QuestCompleted { get; set; } = new List<string>();
-    public string location { get; set; }
-    public List<string> inventory { get; set; } = new List<string>();
+    // these are all the fields
+    public List<string> questCompleted = new List<string>();
+    
+    // gets the quest
+    public List<string> GetCompletedQuest()
+    {
+        return questCompleted;
+    }
+    // sets a quest value
+    public void SetQuest(List<string> quest)
+    {
+        questCompleted = quest;
+    }
+
+
+    public string Location;
+
+    public string GetLocation()
+    {
+        return Location;
+    }
+    public void setLocation(string value)
+    {
+        Location = value;
+    }
+    
+    public List<string> inventory = new List<string>();
+    public List<string> Getinventory()
+    {
+        return inventory;
+    }
+
+    public void Setinventory(List<string> items)
+    {
+        inventory = items;
+    }
     public int CurrentHitPoints;
     public int MaximumHitPoints;
-
+    // a rng generator
     private static Random rng = new Random();
 
+    // constructor with two parameters
     public Player(int currenthitpoints, int maximumhitpoints)
     {
         CurrentHitPoints = currenthitpoints;
@@ -44,17 +78,13 @@ public class Player
 
     public bool TryFlee()
     {
-        Random rng = new Random();
         int roll = rng.Next(1, 101);
-
-        if (roll <= 70) // 70% chance
+        if (roll <= 70)
         {
-            Console.WriteLine("You successfully fled!");
             return true;
         }
         else
         {
-            Console.WriteLine("You failed to flee!");
             return false;
         }
     }
@@ -63,14 +93,13 @@ public class Player
     {
         const int healAmount = 10;
 
-        // Check if player has a potion
-        if (Inventory.Contains("Heal Potion"))
+        if (inventory.Contains("Heal Potion"))
         {
             CurrentHitPoints += healAmount;
             if (CurrentHitPoints > MaximumHitPoints)
                 CurrentHitPoints = MaximumHitPoints;
 
-            Inventory.Remove("Heal Potion"); // use the potion
+            inventory.Remove("Heal Potion");
             Console.WriteLine($"You used a Heal Potion and recovered {healAmount} HP! (Current HP: {CurrentHitPoints}/{MaximumHitPoints})");
         }
         else
@@ -79,14 +108,44 @@ public class Player
         }
     }
 
-
+    // this is to check if the player has won the game or not
+    // so it first checks if three quests have been done or not
+    // then checks if he is back at home
+    // and last condition is to check if the players inventory contains the item Golden spider
+    // when all conditions match it will display victory if not it wont do anything
+    
     public bool PlayerHasWon()
     {
-        bool DoneThreeQuest = QuestCompleted.Count >= 3;
-        bool AtCastle = location == "Castle";
+        bool DoneThreeQuest = questCompleted.Count >= 3;
+        bool AtHome = Location == "home";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
-        return DoneThreeQuest && AtCastle && hasGoldenSpider;
+        bool WinGame = DoneThreeQuest && AtHome && hasGoldenSpider;
+
+        if (WinGame)
+        {
+            DisplayVictory();
+        }
+        return WinGame;
     }
 
+    // this is to print the victory when you win it shows your location and items in your inventory
+    // it will loop for quest with each quest you have done
+    // and it does the same for invetory items both will print out your results
+    public void DisplayVictory()
+    {
+        Console.WriteLine("\nCongratulations! You won!");
+        Console.WriteLine($"You are at the {Location}");
+        Console.WriteLine("\nThe quests you have done:");
+        foreach (var quest in questCompleted)
+        {
+            Console.WriteLine($"- {quest}");
+        }
+
+        Console.WriteLine("\n Your inventory items:");
+        foreach (var item in inventory)
+        {
+            Console.WriteLine($"- {item}");
+        }
+    }
 }

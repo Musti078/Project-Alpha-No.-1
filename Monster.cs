@@ -53,4 +53,3 @@ public static class Monster
 
       public bool IsDead => CurrentHitPoints <= 0;
 }
-

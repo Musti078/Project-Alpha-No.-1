@@ -1,18 +1,27 @@
-using System;
-using System.Collections.Generic;
-
 public class Weapon
 {
-    public string Name { get; }
-    public int Damage { get; }
+    public string Name;
+    public int Damage;
+    public int ID;
 
-    public Weapon(string name, int damage)
+    public string GetName() => Name;
+    public int GetDamage() => Damage;
+
+    public Weapon(int id, string name, int damage)
     {
+        ID = id;
         Name = name;
         Damage = damage;
     }
 }
+// this is the class for items
+public class ItemCatalog
+{
+    public const string HealPotion = "Heal Potion";
+    public const string GoldenSpider = "Golden Spider";
+}
 
+// the weapon system class
 public static class WeaponSystem
 {
     ///  Quest from given case     NOTE: The const keyword>>
@@ -25,24 +34,27 @@ public static class WeaponSystem
     public const string QuestSpiders = "Collect the Spider's Silk";
 
     // Current equipped weapon ( WE START WITH RUSTY SWORD)
-    public static string EquippedWeaponName { get; private set; } = "Rusty Sword";
-    public static int EquippedWeaponDamage { get; private set; } = 3;
+    public static string EquippedWeaponName = "Rusty Sword";
+    public static int EquippedWeaponDamage = 3;
+
+    public static string GetEquippedWeaponName() => EquippedWeaponName;
+    public static int GetEquippedWeaponDamage() => EquippedWeaponDamage;
 
     // show rewards before starting a quest
     public static void PreviewQuestRewards(string questName)
     {
-       var (weapon, potions) = GetReward(questName);
-       if (weapon is null)
-       {
-        Console.WriteLine($"No reward for quest: {questName}");
-        return;
-       }
+        var (weapon, potions, _) = GetReward(questName);
+        if (weapon is null)
+        {
+            Console.WriteLine($"No reward for quest: {questName}");
+            return;
+        }
 
-       Console.WriteLine($"Quest: {questName}");
-       Console.WriteLine($"Rewards:");
-       Console.WriteLine($" - Weapon: {weapon.Name} (DMG {weapon.Damage})");
-       Console.WriteLine($" - Heal Potion x{potions}");
-       Console.WriteLine();
+        Console.WriteLine($"Quest: {questName}");
+        Console.WriteLine($"Rewards:");
+        Console.WriteLine($" - Weapon: {(weapon.GetName())} (DMG {weapon.GetDamage()})");
+        Console.WriteLine($" - Heal Potion x{potions}");
+        Console.WriteLine();
     }
 
     // Give rewards when quest is completed
@@ -57,7 +69,7 @@ public static class WeaponSystem
             return;
         }
 
-        var (weapon, potions) = GetReward(questName);
+        var (weapon, potions, items) = GetReward(questName);
         if (weapon is null)
         {
             Console.WriteLine($"Quest '{questName}' complete! (No weapon reward defined).");
@@ -70,52 +82,58 @@ public static class WeaponSystem
         // Heal potions or potion
         for (int i = 0; i < potions; i++)
             playerInventory.Add("Heal Potion");
-        Console.WriteLine($"Heal Potion x{potions} added to inventory.");
+        Console.WriteLine($"{ItemCatalog.HealPotion} x{potions} added to inventory.");
 
         // weapon to inventory
-        playerInventory.Add(weapon.Name);
-        Console.WriteLine($"{weapon.Name} added to inventory.");
+        playerInventory.Add(weapon.GetName());
+        Console.WriteLine($"{weapon.GetName()} added to inventory.");
+
+        foreach (var item in items)
+        {
+            playerInventory.Add(item);
+            Console.WriteLine($"{item} added to inventory");
+        }
 
         // auto-equip if better than current
-        if (weapon.Damage > EquippedWeaponDamage)
+        if (weapon.GetDamage() > EquippedWeaponDamage)
         {
             string prevName = EquippedWeaponName;
             int prevDmg = EquippedWeaponDamage;
 
-            EquippedWeaponName = weapon.Name;
-            EquippedWeaponDamage = weapon.Damage;
+            EquippedWeaponName = weapon.GetName();
+            EquippedWeaponDamage = weapon.GetDamage();
 
             if (string.IsNullOrEmpty(prevName))
-                Console.WriteLine($"{weapon.Name} equipped.");
+                Console.WriteLine($"{weapon.GetName()} equipped.");
             else
-                Console.WriteLine($"{weapon.Name} equipped (upgraded from {prevName} {prevDmg} → {weapon.Damage}).");
+                Console.WriteLine($"{weapon.GetName()} equipped (upgraded from {prevName} {prevDmg} → {weapon.GetDamage()}).");
         }
         else
         {
-            Console.WriteLine($"{weapon.Name} not an upgrade.");
+            Console.WriteLine($"{weapon.GetName()} not an upgrade.");
         }
 
         completedQuests.Add(questName);
     }
 
     // REWARD TABLE
-    private static (Weapon? weapon, int potions) GetReward(string questName)
+    private static (Weapon? weapon, int potions, List<string> items) GetReward(string questName)
     {
         if (string.Equals(questName, QuestFarmer, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Sturdy Sword", 6), 1);
-        
+            return (new Weapon(999, "Sturdy Sword", 6), 1, new List<string>());
+
         if (string.Equals(questName, QuestAlchemist, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Steel Sword", 8), 1);
+            return (new Weapon(1000, "Steel Sword", 8), 1, new List<string>());
 
         if (string.Equals(questName, QuestSpiders, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Spider King Slayer", 15), 1);
-        
-        return (null, 0); // no reward
+            return (new Weapon(1001, "Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
+
+        return (null, 0, new List<string>());
     }
 
     // Display current weapon
-            public static void ShowEquippedWeapon()
-            {
-                Console.WriteLine($"Equipped Weapon: {EquippedWeaponName} (DMG {EquippedWeaponDamage})");
-            }
+    public static void ShowEquippedWeapon()
+    {
+        Console.WriteLine($"Equipped Weapon: {EquippedWeaponName} (DMG {EquippedWeaponDamage})");
     }
+}
