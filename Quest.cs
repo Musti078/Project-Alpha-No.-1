@@ -72,7 +72,7 @@ public class Quest
         }
         if (choice == "N")
         {
-            Console.WriteLine("Then lease proceed to another location");
+            Console.WriteLine("Then please proceed to another location");
         }
 
     }

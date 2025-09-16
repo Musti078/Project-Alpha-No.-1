@@ -1,4 +1,4 @@
-public class Program
+﻿public class Program
 {
     public static void Main()
     {
@@ -25,9 +25,18 @@ public class Program
         Console.WriteLine($"Current location is {location.Name}");
 
 
-
-        //hier stoppen omdat speler bewegen error geeft.
-        //Environment.Exit(0);
+        // a string for movement from user
+        /*
+            its done in a while loop to keep asking the user wants to do if the user types in exit it will break the loop and stop the game
+            first it shows your location that you are at and shows the description of that location
+            below that it will show the location you can move to for example;
+            if you are at home it will show home the only direction you can go to is north so it only shows north
+            after that it will ask for your input to move around. 
+            it checks your input with a switch statement to get you to move to the right direction
+            after checking that it will use a if statement to check if your next location is null if so you cannot move there and have to input again
+            if not null it will move you to that directions
+            and shows that you moved to that location
+        */
         string usermovement = "";
         while (usermovement.ToLower() != "exit")
         {
