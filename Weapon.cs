@@ -15,7 +15,7 @@ public class Weapon
     }
 }
 // this is the class for items
-public static class ItemCatalog
+public class ItemCatalog
 {
     public const string HealPotion = "Heal Potion";
     public const string GoldenSpider = "Golden Spider";
@@ -95,23 +95,23 @@ public static class WeaponSystem
         }
 
         // auto-equip if better than current
-            if (weapon.GetDamage() > EquippedWeaponDamage)
-            {
-                string prevName = EquippedWeaponName;
-                int prevDmg = EquippedWeaponDamage;
+        if (weapon.GetDamage() > EquippedWeaponDamage)
+        {
+            string prevName = EquippedWeaponName;
+            int prevDmg = EquippedWeaponDamage;
 
-                EquippedWeaponName = weapon.GetName();
-                EquippedWeaponDamage = weapon.GetDamage();
+            EquippedWeaponName = weapon.GetName();
+            EquippedWeaponDamage = weapon.GetDamage();
 
-                if (string.IsNullOrEmpty(prevName))
-                    Console.WriteLine($"{weapon.GetName()} equipped.");
-                else
-                    Console.WriteLine($"{weapon.GetName()} equipped (upgraded from {prevName} {prevDmg} → {weapon.GetDamage()}).");
-            }
+            if (string.IsNullOrEmpty(prevName))
+                Console.WriteLine($"{weapon.GetName()} equipped.");
             else
-            {
-                Console.WriteLine($"{weapon.GetName()} not an upgrade.");
-            }
+                Console.WriteLine($"{weapon.GetName()} equipped (upgraded from {prevName} {prevDmg} → {weapon.GetDamage()}).");
+        }
+        else
+        {
+            Console.WriteLine($"{weapon.GetName()} not an upgrade.");
+        }
 
         completedQuests.Add(questName);
     }
@@ -120,15 +120,15 @@ public static class WeaponSystem
     private static (Weapon? weapon, int potions, List<string> items) GetReward(string questName)
     {
         if (string.Equals(questName, QuestFarmer, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Sturdy Sword", 6), 1, new List<string>());
+            return (new Weapon(999, "Sturdy Sword", 6), 1, new List<string>());
 
         if (string.Equals(questName, QuestAlchemist, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Steel Sword", 8), 1, new List<string>());
+            return (new Weapon(1000, "Steel Sword", 8), 1, new List<string>());
 
         if (string.Equals(questName, QuestSpiders, StringComparison.OrdinalIgnoreCase))
-            return (new Weapon("Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
+            return (new Weapon(1001, "Spider King Slayer", 15), 1, new List<string> { ItemCatalog.GoldenSpider });
 
-        return (null, 0, new List<string>()); // no reward
+        return (null, 0, new List<string>());
     }
 
     // Display current weapon
