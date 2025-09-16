@@ -2,8 +2,8 @@
 {
     public static void Main()
     {
-        var quests = World.Quests;
-        Console.WriteLine($"there are {quests.Count} quests");
+        //var quests = World.Quests;
+        //Console.WriteLine($"there are {quests.Count} quests");
 
         Player player = new Player(0, 10);
 
@@ -12,11 +12,12 @@
         string userName = Console.ReadLine() ?? "";
 
         Location location = World.Locations[0];
+        location.CurrentLocation = location;
         Console.WriteLine($"Current location is {location.Name}");
 
-        //hier stoppen omdat speler bewegen error geeft.
-        Environment.Exit(0);
 
+        //hier stoppen omdat speler bewegen error geeft.
+        //Environment.Exit(0);
         string usermovement = "";
         while (usermovement.ToLower() != "exit")
         {
@@ -26,7 +27,17 @@
             usermovement = Console.ReadLine() ?? "";
 
             location.Move(usermovement);
+
+
+            //om de quest te testen zet ik de Current Location op een quest.
+            location.CurrentLocation = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            var quest = location.CurrentLocation.QuestAvailableHere;
+            if (quest is not null)
+            {
+                quest.StartQuest();
+            }
         }
+
 
         if (player.PlayerHasWon())
         {
@@ -38,6 +49,7 @@
             return Victory;
             */
         }
+
 
         /* testen
 
@@ -67,9 +79,5 @@
         Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
 
         */
-
-
     }
-
-
 }

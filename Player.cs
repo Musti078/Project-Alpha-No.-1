@@ -2,7 +2,7 @@ public class Player
 {
     // these are all the fields
     public List<string> questCompleted = new List<string>();
-    
+
     // gets the quest
     public List<string> GetCompletedQuest()
     {
@@ -25,7 +25,7 @@ public class Player
     {
         Location = value;
     }
-    
+
     public List<string> inventory = new List<string>();
     public List<string> Getinventory()
     {
@@ -40,6 +40,7 @@ public class Player
     public int MaximumHitPoints;
     // a rng generator
     private static Random rng = new Random();
+
 
     // constructor with two parameters
     public Player(int currenthitpoints, int maximumhitpoints)
@@ -113,7 +114,7 @@ public class Player
     // then checks if he is back at home
     // and last condition is to check if the players inventory contains the item Golden spider
     // when all conditions match it will display victory if not it wont do anything
-    
+
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = questCompleted.Count >= 3;

@@ -6,8 +6,6 @@ public class Quest
     //If the player starts the quest then the player gets a message that the quest has started with the objective -vrijdag
     //The player gets to see what the quest is about and what rewards are for the quest - vrijdag
 
-
-
     /// <summary>
     /// unique id of quest
     /// </summary>
@@ -40,39 +38,32 @@ public class Quest
         this.Description = description;
     }
 
-    //World.Weapons;
-    //World.Monsters;
-    //World.Quest;
-    //World.Locations;
-    //World.RandomGenerator;
-
-
     /// <summary>
     /// usage: Location.QuestAvailableHere.StartQuest()
     /// </summary>
     public void StartQuest()
     {
-
-
-        //When the player enters a location with a quest, ask the user if he wants to start the quest or not - af vandaag
-        //hoe weten we of er een quest is op een locatie
+        //When the player enters a location with a quest,
+        //ask the user if he wants to start the quest or not
 
         //Id = QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
         //Name = "Clear the alchemist's garden",
         //Description = "Kill rats in the alchemist's garden ");
 
+        //eerst tonen wat quest inhoud en wat beloning is
+        Console.WriteLine($"New quest: {this.Description}");
+        WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
 
+        //vragen of player quest wil starten
         Console.WriteLine("Do you want to start the quest or not? Y/N");
         string choice = Console.ReadLine().ToUpper();
         if (choice == "Y")
         {
-            WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
             Console.WriteLine($"The quest has started: {this.Name}");
-            Console.WriteLine($"Your objective is to: {this.Description}");
         }
         if (choice == "N")
         {
-            Console.WriteLine("Then lease proceed to another location");
+            Console.WriteLine("Then please proceed to another location");
         }
 
     }
