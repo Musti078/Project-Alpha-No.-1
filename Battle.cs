@@ -1,6 +1,6 @@
 public class Battle
 {
-    public static void Start(Player player, Monster monster)
+    public static string Start(Player player, Monster monster)
     {
         Console.WriteLine($"A wild {monster.Name} appears!\n");
 
@@ -19,20 +19,22 @@ public class Battle
                 case "1":
                     int damage = player.Attack();
                     monster.CurrentHitPoints -= damage;
-                    if (monster.CurrentHitPoints < 0) monster.CurrentHitPoints = 0;
+                    if (monster.CurrentHitPoints <= 0)
+                    {
+                        monster.CurrentHitPoints = 0;
+                        monster.IsDead = true;   // mark as dead
+                    }
 
                     Console.WriteLine($"{monster.Name} HP: {monster.CurrentHitPoints}/{monster.MaximumHitPoints}\n");
 
-                    if (monster.CurrentHitPoints <= 0)
+                    if (monster.IsDead)
                     {
-                        monster.IsDead = true;
                         Console.WriteLine($"You defeated {monster.Name}!\n");
-                        return;
+                        return "Victory";
                     }
                     break;
 
                 case "2":
-
                     player.Heal();
                     Console.WriteLine($"Player HP: {player.CurrentHitPoints}/{player.MaximumHitPoints}\n");
                     break;
@@ -41,7 +43,7 @@ public class Battle
                     if (player.TryFlee())
                     {
                         Console.WriteLine("You successfully fled the battle!\n");
-                        return;
+                        return "Fled";
                     }
                     Console.WriteLine("You failed to flee!\n");
                     break;
@@ -51,6 +53,7 @@ public class Battle
                     continue;
             }
 
+            // Monster attacks back
             if (!monster.IsDead)
             {
                 int monsterDamage = monster.attack();
@@ -62,9 +65,11 @@ public class Battle
                 if (player.CurrentHitPoints <= 0)
                 {
                     Console.WriteLine("You have been defeated!\n");
-                    return;
+                    return "Defeat";
                 }
             }
         }
+
+        return "Defeat";
     }
 }
