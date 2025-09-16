@@ -62,21 +62,15 @@ public class Quest
         //Description = "Kill rats in the alchemist's garden ");
 
 
-        Console.WriteLine("Do you want to start the quest or not? Y/N");
-        string choice = Console.ReadLine().ToUpper();
-        if (choice == "Y")
-        {
-            WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
-            Console.WriteLine($"The quest has started: {this.Name}");
-            Console.WriteLine($"Your objective is to: {this.Description}");
-        }
-        if (choice == "N")
-        {
-            Console.WriteLine("Then lease proceed to another location");
-        }
+
+        WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
+        Console.WriteLine($"The quest has started: {this.Name}");
+        Console.WriteLine($"Your objective is to: {this.Description}");
+
 
     }
-
+}
+/*
     /// <summary>Returns true if Quest is completed</summary>
     /// <returns>true if Quest is completed</returns>
     public bool QuestCompleted()
@@ -92,3 +86,4 @@ public class Quest
         return true;
     }
 }
+*/

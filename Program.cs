@@ -64,82 +64,86 @@
                 Console.WriteLine($"You moved to: {currentlocation.Name}");
 
 
-
-
                 //om de quest te testen zet ik de Current Location op een quest.
                 var quest = currentlocation.QuestAvailableHere;
+
                 if (quest is not null)
                 {
-                    quest.StartQuest();
-
-                    int ratsDefeated = 0;
-                    Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
-
-                    while (ratsDefeated < 3)
+                    Console.WriteLine("Do you want to start the quest or not? Y/N");
+                    string choice = Console.ReadLine().ToUpper();
+                    if (choice == "Y")
                     {
-                        // Battle with the rat; player HP carries over
-                        Battle.Start(player, rat);
+                        quest.StartQuest();
 
-                        if (rat.IsDead)
+                        int ratsDefeated = 0;
+                        Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
+
+                        while (ratsDefeated < 3)
                         {
-                            ratsDefeated++;
-                            player.PotionAmount++;
-                            Console.WriteLine("You gained a health potion");
-                            Console.WriteLine($"Rats defeated: {ratsDefeated}/3");
+                            // Battle with the rat; player HP carries over
+                            Battle.Start(player, rat);
 
-                            // Reset monster so it can be fought again
-                            rat.CurrentHitPoints = rat.MaximumHitPoints;
-                            rat.IsDead = false;
+                            if (rat.IsDead)
+                            {
+                                ratsDefeated++;
+                                player.PotionAmount++;
+                                Console.WriteLine("You gained a health potion");
+                                Console.WriteLine($"Rats defeated: {ratsDefeated}/3");
+
+                                // Reset monster so it can be fought again
+                                rat.CurrentHitPoints = rat.MaximumHitPoints;
+                                rat.IsDead = false;
+                            }
+                        }
+                        Console.WriteLine("Quest completed!");
+                    if (choice == "N")
+                        {
+                            Console.WriteLine("Then lease proceed to another location");
                         }
                     }
-
-                    Console.WriteLine("Quest completed!");
-
                 }
-
             }
         }
 
-
         // if (player.PlayerHasWon())
-        // {
-        //     /*
-        //     if (WinGame)
-        //     {
-        //         Victory = player.DisplayVictory();
-        //     }
-        //     return Victory;
-        //     */
-        // }
+            // {
+            //     /*
+            //     if (WinGame)
+            //     {
+            //         Victory = player.DisplayVictory();
+            //     }
+            //     return Victory;
+            //     */
+            // }
 
 
-        /* testen
+            /* testen
 
-        // the objects for the classes that we can use
-        //Location locations = new Location(locations, username, _);
-        Player player = new Player(100, 100);
-        Weapon weapon = new Weapon(userName, 5);
-        Monster Rat = new Monster(100, rat, 6, 20, Splinter);
-        Monster Snake = new Monster(100, snake, 10, 50, Snakey);
-        Monster GiantSpider = new Monster(100, giantSpider, 15, 100, Spidey);
-        Quest quests = new Quest();
+            // the objects for the classes that we can use
+            //Location locations = new Location(locations, username, _);
+            Player player = new Player(100, 100);
+            Weapon weapon = new Weapon(userName, 5);
+            Monster Rat = new Monster(100, rat, 6, 20, Splinter);
+            Monster Snake = new Monster(100, snake, 10, 50, Snakey);
+            Monster GiantSpider = new Monster(100, giantSpider, 15, 100, Spidey);
+            Quest quests = new Quest();
 
-        //the objects for the locations
-        Location alchemisthut = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location bridge = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location home = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location townsquare = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location alchemistgarden = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location farmersfield = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location gueardpost = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location spiderfield = World.LocationByID(World.LOCATION_ID_BRIDGE);
+            //the objects for the locations
+            Location alchemisthut = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location bridge = World.LocationByID(World.LOCATION_ID_BRIDGE);
+            Location home = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location townsquare = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location alchemistgarden = World.LocationByID(World.LOCATION_ID_BRIDGE);
+            Location farmersfield = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location gueardpost = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location spiderfield = World.LocationByID(World.LOCATION_ID_BRIDGE);
 
-        //quest objects
-        Quest firstQuest = World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
-        Quest secondQuest = World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD);
-        Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
+            //quest objects
+            Quest firstQuest = World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
+            Quest secondQuest = World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD);
+            Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
 
-        */
-    }
+            */
+        }
 }
