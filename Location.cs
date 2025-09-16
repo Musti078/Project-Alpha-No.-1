@@ -4,7 +4,7 @@ public class Location
     public int ID;
     public string Name;
     public string Description;
-    public Item ItemRequiredToEnter;
+    public ItemCatalog ItemRequiredToEnter;
     public Quest QuestAvailableHere;
     public Monster MonsterLivingHere;
     public Location LocationToNorth;
@@ -13,80 +13,86 @@ public class Location
     public Location LocationToWest;
 
     // constructor with the parameters and assigning them correctly
-    public Location(int id, string name, string description, Item itemRequired = null, Quest questready = null, Monster monsterHere = null)
+    public Location(int id, string name, string description, ItemCatalog itemRequired = null, Quest questavailablehere = null, Monster monsterHere = null)
     {
         ID = id;
         Name = name;
         Description = description;
         ItemRequiredToEnter = itemRequired;
-        questready = questready;
+        QuestAvailableHere = questavailablehere;
         MonsterLivingHere = monsterHere;
-        List<Locations> North = new List<Locations>
+        /*
+        List<Location> North = new List<Location>
         { townsquare.LocationToNorth, alchemistHut.LocationToNorth };
-        List<Locations> East = new List<Locations>
+        List<Location> East = new List<Location>
         { townSquare.LocationToEast, farmhouse.LocationToEast, farmersField.LocationToEast, guardPost.LocationToEast, bridge.LocationToEast };
-        List<Locations> South = new List<Locations>
+        List<Location> South = new List<Location>
         { townSquare.LocationToSouth, alchemistHut.LocationToSouth, alchemistsGarden.LocationToSouth, bridge.LocationToSouth };
-        List<Locations> West = new List<Locations>
+        List<Location> West = new List<Location>
         { townSquare.LocationToWest, farmhouse.LocationToWest, guardPost.LocationToWest, bridge.LocationToWest, spiderField.LocationToWest };
+        */
     }
 
     // Where the player currently is
     public Location CurrentLocation;
 
     // Attempt to move in a given direction
-    public string Move(string direction)
-    {
-        // you can use switch to shorten and make the code clearer and more understandable.
-        // switch tries to match the condition
-        Location nextLocation = direction.ToLower() switch
-        {
-            "north" => CurrentLocation.North,
-            "east" => CurrentLocation.East,
-            "south" => CurrentLocation.South,
-            "west" => CurrentLocation.West,
-            _ => null
-        };
+    // public string Move(string direction)
+    // {
+    //     // you can use switch to shorten and make the code clearer and more understandable.
+    //     // switch tries to match the condition
+    //     Location nextLocation = direction.ToLower() switch
+    //     {
+    //         "north" => LocationToNorth,
+    //         "east" => LocationToEast,
+    //         "south" => LocationToSouth,
+    //         "west" => LocationToWest,
+    //         _ => null
+    //     };
 
 
-        //                    [AlchemistsGarden]
-        //                            ↑
-        //                      [AlchemistHut]
-        //                            ↑
-        //     Farmersfield <-> [TownSquare] ←→ [GuardPost] ←→ [Bridge] ←→ [SpiderField]
-        //                            ↑
-        //                          [Home]
+    // //                    [AlchemistsGarden]
+    // //                            ↑
+    // //                      [AlchemistHut]
+    // //                            ↑
+    // //     Farmersfield <-> [TownSquare] ←→ [GuardPost] ←→ [Bridge] ←→ [SpiderField]
+    // //                            ↑
+    // //                          [Home]
 
-        VerticalLine = "|";
-        HorizontalLine = "──";
+    //     bool goNorth = CurrentLocation == LocationToNorth;
+    //     bool goWest = CurrentLocation == LocationToWest;
+    //     bool goEast = CurrentLocation == LocationToEast;
+    //     bool goSouth = CurrentLocation == LocationToSouth;
+    //     string VerticalLine = "|";
+    //     string HorizontalLine = "──";
 
-        if (goNorth)
-        {
-            Console.WriteLine("N");
-        }
+    //     if (goNorth)
+    //     {
+    //         Console.WriteLine("N");
+    //     }
 
 
 
-        if (newLocation == null)
-        {
-            return "You cannot go that way! Choose another way";
-        }
+    //     if (nextLocation == null)
+    //     {
+    //         return "You cannot go that way! Choose another way";
+    //     }
 
-        CurrentLocation = newLocation;
-        return "You moved to: " + CurrentLocation.Name + "\n" + ShowAvailableMoves();
-    }
+    //     CurrentLocation = nextLocation;
+    //     return "You moved to: " + CurrentLocation.Name + "\n" + ShowAvailableMoves();
+    // }
 
-    // Show directions the player can travel from current location
-    public string ShowAvailableMoves()
-    {
-        string result = "Possible moves:\n";
+    // // Show directions the player can travel from current location
+    // public string ShowAvailableMoves()
+    // {
+    //     string result = "Possible moves:\n";
 
-        if (CurrentLocation.LocationToNorth != null) result += "north → " + CurrentLocation.LocationToNorth.Name + "\n";
-        if (CurrentLocation.LocationToEast != null) result += "east → " + CurrentLocation.LocationToEast.Name + "\n";
-        if (CurrentLocation.LocationToSouth != null) result += "south → " + CurrentLocation.LocationToSouth.Name + "\n";
-        if (CurrentLocation.LocationToWest != null) result += "west → " + CurrentLocation.LocationToWest.Name + "\n";
+    //     if (CurrentLocation.LocationToNorth != null) result += "north → " + CurrentLocation.LocationToNorth.Name + "\n";
+    //     if (CurrentLocation.LocationToEast != null) result += "east → " + CurrentLocation.LocationToEast.Name + "\n";
+    //     if (CurrentLocation.LocationToSouth != null) result += "south → " + CurrentLocation.LocationToSouth.Name + "\n";
+    //     if (CurrentLocation.LocationToWest != null) result += "west → " + CurrentLocation.LocationToWest.Name + "\n";
 
-        // Remove any trailing whitespace or line breaks from the end of the string.
-        return result.TrimEnd();
-    }
+    //     // Remove any trailing whitespace or line breaks from the end of the string.
+    //     return result.TrimEnd();
+    // }
 }
