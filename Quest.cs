@@ -1,13 +1,6 @@
 public class Quest
 {
-    //As a player I want to start a quest so I can finish it (in order to complete the game)
-    //When the player enters a location with a quest, ask the user if he wants to start the quest or not - af vandaag
-    //If the player does not want to start the quest, then the user can choose to go to another location instead of the quest location -af vandaag
-    //If the player starts the quest then the player gets a message that the quest has started with the objective -vrijdag
-    //The player gets to see what the quest is about and what rewards are for the quest - vrijdag
-
-
-
+    
     /// <summary>
     /// unique id of quest
     /// </summary>
@@ -62,21 +55,15 @@ public class Quest
         //Description = "Kill rats in the alchemist's garden ");
 
 
-        Console.WriteLine("Do you want to start the quest or not? Y/N");
-        string choice = Console.ReadLine().ToUpper();
-        if (choice == "Y")
-        {
-            WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
-            Console.WriteLine($"The quest has started: {this.Name}");
-            Console.WriteLine($"Your objective is to: {this.Description}");
-        }
-        if (choice == "N")
-        {
-            Console.WriteLine("Then lease proceed to another location");
-        }
+
+        WeaponSystem.PreviewQuestRewards(Name); //todo: beter met ID ophalen?
+        Console.WriteLine($"The quest has started: {this.Name}");
+        Console.WriteLine($"Your objective is to: {this.Description}");
+
 
     }
-
+}
+/*
     /// <summary>Returns true if Quest is completed</summary>
     /// <returns>true if Quest is completed</returns>
     public bool QuestCompleted()
@@ -92,3 +79,4 @@ public class Quest
         return true;
     }
 }
+*/
