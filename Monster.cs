@@ -47,10 +47,10 @@ public class Monster
         return damage;
     }
 
-    public string DropLoot()
+    public void DropLoot()
     {
         Console.WriteLine($"{Name} dropped a Healing Potion!");
-        return "Heal Potion";
+        
     }
 
 }
