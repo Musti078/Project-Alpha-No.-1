@@ -1,4 +1,4 @@
-public class Program
+﻿public class Program
 {
 
     public static void Main()
@@ -14,7 +14,7 @@ public class Program
         Console.WriteLine($"there are {quests.Count} quests");
 
 
-        Player player = new Player(100, 100);
+        Player player = new Player(30, 30);
         Location currentlocation = World.LocationByID(World.LOCATION_ID_HOME);
 
         // asking the user his/her name
@@ -64,83 +64,85 @@ public class Program
                 Console.WriteLine($"You moved to: {currentlocation.Name}");
 
 
-
-
                 //om de quest te testen zet ik de Current Location op een quest.
-                location.CurrentLocation = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-                var quest = location.CurrentLocation.QuestAvailableHere;
+                var quest = currentlocation.QuestAvailableHere;
+
                 if (quest is not null)
                 {
-                    quest.StartQuest();
+                    Console.WriteLine("Do you want to start the quest or not? Y/N");
+                    string choice = Console.ReadLine().ToUpper();
 
-                    int ratsDefeated = 0;
-                    Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
-
-                    while (ratsDefeated < 3)
+                    if (choice == "Y")
                     {
-                        // Battle with the rat; player HP carries over
-                        Battle.Start(player, rat);
+                        quest.StartQuest();
 
-                        if (rat.IsDead)
+                        int monstersDefeated = 0;
+                        Monster questMonster = null;
+
+                        // decide which monster belongs to this quest
+                        if (quest.ID == World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN)
+                            questMonster = World.MonsterByID(World.MONSTER_ID_RAT);
+                        else if (quest.ID == World.QUEST_ID_CLEAR_FARMERS_FIELD)
+                            questMonster = World.MonsterByID(World.MONSTER_ID_SNAKE);
+                        else if (quest.ID == World.QUEST_ID_COLLECT_SPIDER_SILK)
+                            questMonster = World.MonsterByID(World.MONSTER_ID_GIANT_SPIDER);
+
+                        // fight 3 times
+                        while (monstersDefeated < 3)
                         {
-                            ratsDefeated++;
-                            player.PotionAmount++;
-                            Console.WriteLine("You gained a health potion");
-                            Console.WriteLine($"Rats defeated: {ratsDefeated}/3");
+                            string result = Battle.Start(player, questMonster);
 
-                            // Reset monster so it can be fought again
-                            rat.CurrentHitPoints = rat.MaximumHitPoints;
-                            rat.IsDead = false;
+                            if (result == "Victory")
+                            {
+                                monstersDefeated++;
+                                player.PotionAmount++;
+                                Console.WriteLine("You gained a health potion");
+                                Console.WriteLine($"{questMonster.Name}s defeated: {monstersDefeated}/3");
+
+                                // Reset monster
+                                questMonster.CurrentHitPoints = questMonster.MaximumHitPoints;
+                                questMonster.IsDead = false;
+                            }
+                            else if (result == "Fled")
+                            {
+                                Console.WriteLine("You fled from the battle!");
+                                break;
+                            }
+                            else if (result == "Defeat")
+                            {
+                                Console.WriteLine("Game Over!");
+                                Environment.Exit(0);
+                            }
+                        }
+
+                        if (monstersDefeated == 3)
+                        {
+                            Console.WriteLine($"Quest '{quest.Name}' completed!");
+                            player.questCompleted.Add(quest.Name);
                         }
                     }
-
-                    Console.WriteLine("Quest completed!");
-
+                    else
+                    {
+                        Console.WriteLine("Then please proceed to another location");
+                    }
                 }
 
+                }
             }
         }
 
-
         // if (player.PlayerHasWon())
-        // {
-        //     /*
-        //     if (WinGame)
-        //     {
-        //         Victory = player.DisplayVictory();
-        //     }
-        //     return Victory;
-        //     */
-        // }
+            // {
+            //     /*
+            //     if (WinGame)
+            //     {
+            //         Victory = player.DisplayVictory();
+            //     }
+            //     return Victory;
+            //     */
+            // }
 
 
-        /* testen
 
-        // the objects for the classes that we can use
-        //Location locations = new Location(locations, username, _);
-        Player player = new Player(100, 100);
-        Weapon weapon = new Weapon(userName, 5);
-        Monster Rat = new Monster(100, rat, 6, 20, Splinter);
-        Monster Snake = new Monster(100, snake, 10, 50, Snakey);
-        Monster GiantSpider = new Monster(100, giantSpider, 15, 100, Spidey);
-        Quest quests = new Quest();
-
-        //the objects for the locations
-        Location alchemisthut = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location bridge = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location home = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location townsquare = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location alchemistgarden = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location farmersfield = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location gueardpost = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location spiderfield = World.LocationByID(World.LOCATION_ID_BRIDGE);
-
-        //quest objects
-        Quest firstQuest = World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
-        Quest secondQuest = World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD);
-        Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
-
-        */
-    }
 }
+
