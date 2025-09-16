@@ -12,7 +12,7 @@ public class Program
         Console.WriteLine($"there are {quests.Count} quests");
 
 
-        Player player = new Player(0, 10);
+        Player player = new Player(100, 100);
         Location currentlocation = World.LocationByID(World.LOCATION_ID_HOME);
 
         // asking the user his/her name
@@ -61,7 +61,7 @@ public class Program
                 currentlocation = nextLocation;
                 Console.WriteLine($"You moved to: {currentlocation.Name}");
 
-        
+
 
 
                 //om de quest te testen zet ik de Current Location op een quest.
@@ -70,8 +70,32 @@ public class Program
                 if (quest is not null)
                 {
                     quest.StartQuest();
+
+                    int ratsDefeated = 0;
+                    Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
+
+                    while (ratsDefeated < 3)
+                    {
+                        // Battle with the rat; player HP carries over
+                        Battle.Start(player, rat);
+
+                        if (rat.IsDead)
+                        {
+                            ratsDefeated++;
+                            Console.WriteLine($"Rats defeated: {ratsDefeated}/3");
+
+                            // Reset monster so it can be fought again
+                            rat.CurrentHitPoints = rat.MaximumHitPoints;
+                            rat.IsDead = false;
+                        }
+                    }
+
+                    Console.WriteLine("Quest completed!");
+
                 }
+
             }
+        }
 
 
             // if (player.PlayerHasWon())
@@ -116,4 +140,3 @@ public class Program
             */
         }
     }
-}
