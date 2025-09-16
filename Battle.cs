@@ -23,8 +23,9 @@ public static class Battle
 
                     Console.WriteLine($"{monster.Name} HP: {monster.CurrentHitPoints}/{monster.MaximumHitPoints}\n");
 
-                    if (monster.IsDead)
+                    if (monster.CurrentHitPoints <= 0)
                     {
+                        monster.IsDead = true;
                         Console.WriteLine($"You defeated {monster.Name}!\n");
                         return;
                     }
@@ -66,4 +67,3 @@ public static class Battle
         }
     }
 }
-
