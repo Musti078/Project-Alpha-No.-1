@@ -6,6 +6,8 @@ public class Monster
     public int MaximumHitPoints;
     public string Name;
 
+    public bool IsDead;
+
     private static Random rng = new Random();
 
     public Monster(int id, string name, int maximumDamage, int maximumHitPoints, int currentHitPoints)
@@ -51,7 +53,5 @@ public class Monster
         return "Heal Potion";
     }
 
-
-      public bool IsDead => CurrentHitPoints <= 0;
 }
 
