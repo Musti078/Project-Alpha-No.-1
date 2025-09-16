@@ -1,4 +1,4 @@
-public static class Battle
+public class Battle
 {
     public static void Start(Player player, Monster monster)
     {
@@ -32,6 +32,7 @@ public static class Battle
                     break;
 
                 case "2":
+
                     player.Heal();
                     Console.WriteLine($"Player HP: {player.CurrentHitPoints}/{player.MaximumHitPoints}\n");
                     break;
