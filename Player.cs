@@ -120,10 +120,9 @@ public class Player
     public bool PlayerHasWon()
     {
         bool DoneThreeQuest = questCompleted.Count >= 3;
-        bool AtHome = Location == "home";
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
-        bool WinGame = DoneThreeQuest && AtHome && hasGoldenSpider;
+        bool WinGame = DoneThreeQuest && hasGoldenSpider;
 
         if (WinGame)
         {
