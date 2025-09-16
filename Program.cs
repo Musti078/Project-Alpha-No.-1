@@ -1,4 +1,4 @@
-public class Program
+﻿public class Program
 {
 
     public static void Main()
@@ -67,8 +67,7 @@ public class Program
 
 
                 //om de quest te testen zet ik de Current Location op een quest.
-                location.CurrentLocation = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-                var quest = location.CurrentLocation.QuestAvailableHere;
+                var quest = currentlocation.QuestAvailableHere;
                 if (quest is not null)
                 {
                     quest.StartQuest();
