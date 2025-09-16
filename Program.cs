@@ -133,6 +133,7 @@
                             }
                             if (player.PlayerHasWon())
                             {
+                                player.DisplayVictory();
                                 Environment.Exit(0);
                             }
                         }
@@ -144,6 +145,7 @@
                 }
                 if (player.PlayerHasWon())
                 {
+                    player.DisplayVictory();
                     Environment.Exit(0);
                 }
 

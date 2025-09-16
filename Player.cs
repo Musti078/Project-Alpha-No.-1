@@ -123,12 +123,6 @@ public class Player
         bool hasGoldenSpider = inventory.Contains("Golden Spider");
 
         bool WinGame = DoneThreeQuest && hasGoldenSpider;
-
-        if (WinGame)
-        {
-            DisplayVictory();
-        }
-        return WinGame;
     }
 
     // this is to print the victory when you win it shows your location and items in your inventory
