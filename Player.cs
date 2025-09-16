@@ -2,6 +2,8 @@ public class Player
 {
     // these are all the fields
     public List<string> questCompleted = new List<string>();
+
+    public int PotionAmount = 2;
     
     // gets the quest
     public List<string> GetCompletedQuest()
@@ -91,15 +93,16 @@ public class Player
 
     public void Heal()
     {
+        
         const int healAmount = 10;
 
-        if (inventory.Contains("Heal Potion"))
+        if (PotionAmount > 0)
         {
             CurrentHitPoints += healAmount;
             if (CurrentHitPoints > MaximumHitPoints)
                 CurrentHitPoints = MaximumHitPoints;
 
-            inventory.Remove("Heal Potion");
+            PotionAmount = PotionAmount - 1;
             Console.WriteLine($"You used a Heal Potion and recovered {healAmount} HP! (Current HP: {CurrentHitPoints}/{MaximumHitPoints})");
         }
         else
