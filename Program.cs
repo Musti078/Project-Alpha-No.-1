@@ -2,18 +2,28 @@
 {
     public static void Main()
     {
-        //var quests = World.Quests;
-        //Console.WriteLine($"there are {quests.Count} quests");
+
+        World.PopulateLocations();
+        World.PopulateMonsters();
+        World.PopulateQuests();
+        World.PopulateWeapons();
+
+        var quests = World.Quests;
+        Console.WriteLine($"there are {quests.Count} quests");
+
 
         Player player = new Player(0, 10);
+        Location currentlocation = World.LocationByID(World.LOCATION_ID_HOME);
 
         // asking the user his/her name
         Console.WriteLine("Enter your name, warrior");
         string userName = Console.ReadLine() ?? "";
 
+
         Location location = World.Locations[0];
         location.CurrentLocation = location;
         Console.WriteLine($"Current location is {location.Name}");
+
 
 
         //hier stoppen omdat speler bewegen error geeft.
@@ -21,63 +31,88 @@
         string usermovement = "";
         while (usermovement.ToLower() != "exit")
         {
-            location.ShowAvailableMoves();
-            Console.WriteLine("Where would you like to go?");
-            Console.WriteLine("'exit' to quit");
-            usermovement = Console.ReadLine() ?? "";
+            Console.WriteLine($"\n You are at {currentlocation.Name}");
+            Console.WriteLine(currentlocation.Description);
 
-            location.Move(usermovement);
+            Console.WriteLine("Directions you can move to");
+            if (currentlocation.LocationToNorth != null) Console.WriteLine("- North");
+            if (currentlocation.LocationToEast != null) Console.WriteLine("- East");
+            if (currentlocation.LocationToSouth != null) Console.WriteLine("- South");
+            if (currentlocation.LocationToWest != null) Console.WriteLine("- West");
 
+            Console.WriteLine("\n Where would you like to go? (to stop type 'Exit')");
+            usermovement = Console.ReadLine().Trim().ToLower() ?? "";
 
-            //om de quest te testen zet ik de Current Location op een quest.
-            location.CurrentLocation = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-            var quest = location.CurrentLocation.QuestAvailableHere;
-            if (quest is not null)
+            Location nextLocation = usermovement switch
             {
-                quest.StartQuest();
-            }
-        }
+                "north" => currentlocation.LocationToNorth,
+                "east" => currentlocation.LocationToEast,
+                "south" => currentlocation.LocationToSouth,
+                "west" => currentlocation.LocationToEast,
+                _ => null
+            };
 
-
-        if (player.PlayerHasWon())
-        {
-            /*
-            if (WinGame)
+            if (nextLocation == null)
             {
-                Victory = player.DisplayVictory();
+                Console.WriteLine("You cannot go that way choose another direction");
             }
-            return Victory;
+            else
+            {
+                currentlocation = nextLocation;
+                Console.WriteLine($"You moved to: {currenlocation.Name}");
+
+                location.Move(usermovement);
+
+
+                //om de quest te testen zet ik de Current Location op een quest.
+                location.CurrentLocation = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+                var quest = location.CurrentLocation.QuestAvailableHere;
+                if (quest is not null)
+                {
+                    quest.StartQuest();
+                }
+            }
+
+
+            // if (player.PlayerHasWon())
+            // {
+            //     /*
+            //     if (WinGame)
+            //     {
+            //         Victory = player.DisplayVictory();
+            //     }
+            //     return Victory;
+            //     */
+            // }
+
+
+            /* testen
+
+            // the objects for the classes that we can use
+            //Location locations = new Location(locations, username, _);
+            Player player = new Player(100, 100);
+            Weapon weapon = new Weapon(userName, 5);
+            Monster Rat = new Monster(100, rat, 6, 20, Splinter);
+            Monster Snake = new Monster(100, snake, 10, 50, Snakey);
+            Monster GiantSpider = new Monster(100, giantSpider, 15, 100, Spidey);
+            Quest quests = new Quest();
+
+            //the objects for the locations
+            Location alchemisthut = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location bridge = World.LocationByID(World.LOCATION_ID_BRIDGE);
+            Location home = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location townsquare = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location alchemistgarden = World.LocationByID(World.LOCATION_ID_BRIDGE);
+            Location farmersfield = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+            Location gueardpost = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+            Location spiderfield = World.LocationByID(World.LOCATION_ID_BRIDGE);
+
+            //quest objects
+            Quest firstQuest = World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
+            Quest secondQuest = World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD);
+            Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
+
             */
         }
-
-
-        /* testen
-
-        // the objects for the classes that we can use
-        //Location locations = new Location(locations, username, _);
-        Player player = new Player(100, 100);
-        Weapon weapon = new Weapon(userName, 5);
-        Monster Rat = new Monster(100, rat, 6, 20, Splinter);
-        Monster Snake = new Monster(100, snake, 10, 50, Snakey);
-        Monster GiantSpider = new Monster(100, giantSpider, 15, 100, Spidey);
-        Quest quests = new Quest();
-
-        //the objects for the locations
-        Location alchemisthut = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location bridge = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location home = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location townsquare = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location alchemistgarden = World.LocationByID(World.LOCATION_ID_BRIDGE);
-        Location farmersfield = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        Location gueardpost = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
-        Location spiderfield = World.LocationByID(World.LOCATION_ID_BRIDGE);
-
-        //quest objects
-        Quest firstQuest = World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
-        Quest secondQuest = World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD);
-        Quest thirdQuest = World.QuestByID(World.QUEST_ID_COLLECT_SPIDER_SILK);
-
-        */
     }
-}
